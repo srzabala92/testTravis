@@ -1,0 +1,158 @@
+openapi: 3.0.1
+info:
+  title: Alerta API
+  description: Esta API provee diferentes servicios para guardar información sobre las distintas alertas y la localización del dispositivo.
+  version: '1.0'
+  termsOfService: 'https://asistex.es/terms'
+  contact:
+    name: Alerta API
+    url: 'https://asistex.es/terms'
+    email: asistex@gmail.com
+servers:
+  - url: Nada todavia
+    description: Beta server
+paths:
+  /alerta/caida:
+    post:
+      tags:
+        - Alertas
+      summary: Alerta de tipo caida 
+      description: Guarda alerta de tipo caida en el servidor.
+      operationId: addAlertaCaida
+      parameters:
+        - in: query
+          name: Alerta Caida
+          description: Registra la alerta de una caída en el servidor.
+          schema:
+            $ref: '#/components/schemas/Alerta'
+      responses:
+        405:
+          description: Invalid input
+        404:
+          $ref: '#/components/responses/404'
+        200:
+         $ref: '#/components/responses/200'
+  /alerta/localizacion:
+    post:
+      tags:
+        - Alertas
+      summary: Alerta de tipo localizacion no permitida 
+      description: Guarda alerta de tipo localizacion no permitida en el servidor.
+      operationId: addAlertaLocalizacion
+      parameters:
+        - in: query
+          name: Alerta Localizacion
+          description: Registra la alerta de localizacion no permitida en el servidor.
+          schema:
+            $ref: '#/components/schemas/Alerta'
+      responses:
+        405:
+          description: Invalid input
+        404:
+          $ref: '#/components/responses/404'
+        200:
+         $ref: '#/components/responses/200'
+  /alerta/bateria:
+    post:
+      tags:
+        - Alertas
+      summary: Alerta del nivel bajo de bateria del dispositivo.
+      description: Registra alerta sobre el nivel bajo de bateria del dispositivo.
+      operationId: addAlertaBateria
+      parameters:
+        - in: query
+          name: Alerta Batería
+          description: Registra la alerta sobre el nivel bajo de bateria del dispositivo.
+          schema:
+            $ref: '#/components/schemas/AlertaBateria'
+      responses:
+        405:
+          description: Invalid input
+        404:
+          $ref: '#/components/responses/404'
+        200:
+         $ref: '#/components/responses/200'
+  /localizacion:
+    post:
+      tags:
+        - Localización
+      summary: Localización de una persona 
+      description: Registra la localización de una persona
+      operationId: addLocalizacion
+      parameters:
+        - in: query
+          name: Localizacion
+          description: Registra la alerta de localizacion de una persona en el servidor.
+          schema:
+            $ref: '#/components/schemas/Alerta'
+      responses:
+        405:
+          description: Invalid input
+        404:
+          $ref: '#/components/responses/404'
+        200:
+         $ref: '#/components/responses/200'
+    
+components:
+  schemas:
+    Alerta:
+      type: object
+      properties:
+        idPersona:
+          type: integer
+          format: int64
+        fecha:
+            type: string
+            format: date
+            example: '2018-11-10'
+        hora:
+            type: string
+            format: time
+            example: '19:00'
+        localizacion:
+          $ref: '#/components/schemas/Localizacion'
+    AlertaBateria:
+      type: object
+      properties:
+        idPersona:
+          type: integer
+          format: int64
+        fecha:
+            type: string
+            format: date
+            example: '2018-11-10'
+        hora:
+            type: string
+            format: time
+            example: '19:00'
+        nivelBateria:
+            type: integer
+            format: int64
+            example: 25
+    Localizacion:
+      type: object
+      properties:
+        latitud:
+          type: number
+          format: float
+          example: 38.5146304
+        longitud:
+          type: number
+          format: float
+          example: -6.8490971,18
+  responses:
+    404:
+      description: Not found response
+      content:
+        text/plain:
+          schema:
+            title: Endpoint not found
+            type: string
+            example: Not found
+    200:
+      description: Successful response
+      content:
+        text/plain:
+          schema:
+            type: boolean
+            example: true
