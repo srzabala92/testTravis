@@ -3,5 +3,5 @@ jdk: oraclejdk8
 deploy:
   provider: heroku
   api_key:
-    secure: "123456789abcdefghijklmnopqrstuvwxyz¿?-_.;,!="
+    secure: "45ff52ca-75cb-425e-9fb6-a92160b80c7f"
   app: istic-20181116
